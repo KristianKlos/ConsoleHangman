@@ -8,25 +8,19 @@ namespace ConsoleHangman
 {
     class Program
     {
+        //Menu logic
         static void Main(string[] args)
         {
-
+            //Variables
             bool MenuLoop = true;
             string menuSelect;
             int guessCount = 16;
 
-
+            //Menu
             while (MenuLoop)
             {
                 Console.Clear();
-                Console.WriteLine("Welcome to Hangman by Kristian Klos "
-                                 + "\n-----------------------------------"
-                                 + "\n1. Play"
-                                 + "\n2. Rules"
-                                 + "\n3. Help(Easy Mode)"
-                                 + "\n9. Exit");
-
-
+                VisualMenu();
                 menuSelect = Console.ReadLine();
 
                 switch (menuSelect)
@@ -54,33 +48,39 @@ namespace ConsoleHangman
                         break;
                 }
             }
-        }//End of Main
+        }
+        //Game Loop
         static void GameLoop(int guessCount)
         {
+            //"Randomizer"
             Random random = new Random((int)DateTime.Now.Ticks);
 
-
+            //Wordbank
             string[] wordBank = { "Volvo", "Ford", "Toyota", "Mazda", "Honda", "Nissan", "Audi", "Subaru" };
 
+            //Pick random word
             string wGuess = wordBank[random.Next(0, wordBank.Length)];
             string wGuessConvertion = wGuess.ToUpper();
 
+            //Convert it to _ 
             StringBuilder wordToUser = new StringBuilder(wGuess.Length);
             for (int i = 0; i < wGuess.Length; i++)
                 wordToUser.Append('_');
 
+            //Creating list for right and wrong guesses
             List<char> rightGuesses = new List<char>();
             List<char> wrongGuesses = new List<char>();
 
-
+            //Game variables
             bool win = false;
             int revealedL = 0;
             char guess;
             string input;
 
-            
+
             //debug Console.WriteLine(guessCount);
 
+            //Game contitions
             while (!win && guessCount > 0)
             {
                 Console.Write("Enter a letter:");
@@ -134,20 +134,33 @@ namespace ConsoleHangman
                 Console.WriteLine($"You lost! \n The word was {wGuess}");
             }
             Console.ReadKey();
-        }//End of GameLoop
+        }
+        //Visual Menu
+        static void VisualMenu()
+        {
+        Console.WriteLine("Welcome to Hangman by Kristian Klos "
+                        + "\n-----------------------------------"
+                        + "\n1. Play"
+                        + "\n2. Rules"
+                        + "\n3. Help(Easy Mode)"
+                        + "\n9. Exit");
+        }
+        //Short description of game
         static void GameRules()
         {
             Console.WriteLine("Hangman is a word guessing game. \nYou start by guessing a letter until you can either guess the word or lose all your (16 by default) wrong guesses.");
             PressToContinue(0);
             Console.ReadKey();
-        }//End of GameRules
+        }
+        //Word theme help + increased guesses
         static void GameHelp(out int guessCount)
         {
             guessCount = 26;
             Console.WriteLine("The theme of the words is \"car brands\".\nAmount of guesses set to 26.");
             PressToContinue(0);
             Console.ReadKey();
-        }//End of GameHelp
+        }
+        //"press to..." messages
         static void PressToContinue(int message)
         {
             int press = message;
@@ -165,7 +178,7 @@ namespace ConsoleHangman
                     break;
             }
 
-        }// End of Press to Continue
-    }// End of Program
-}//End of ConsoleHangman
+        }
+    }
+}
 
