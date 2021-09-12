@@ -16,7 +16,7 @@ namespace ConsoleHangman
             string menuSelect;
             int guessCount = 16;
 
-            //Menu
+            //Menu loop
             while (MenuLoop)
             {
                 Console.Clear();
@@ -44,7 +44,11 @@ namespace ConsoleHangman
                         break;
 
                     default:
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error");
+                        Console.ResetColor();
+                        PressToContinue(0);
+                        Console.ReadKey();
                         break;
                 }
             }
@@ -76,9 +80,6 @@ namespace ConsoleHangman
             int revealedL = 0;
             char guess;
             string input;
-
-
-            //debug Console.WriteLine(guessCount);
 
             //Game contitions
             while (!win && guessCount > 0)
@@ -160,7 +161,7 @@ namespace ConsoleHangman
             PressToContinue(0);
             Console.ReadKey();
         }
-        //"press to..." messages
+        //"Press to..." messages
         static void PressToContinue(int message)
         {
             int press = message;
